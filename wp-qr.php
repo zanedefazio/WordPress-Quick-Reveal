@@ -1,9 +1,9 @@
 <?php
-/*=======================================
-Name: 		WordPress Analyzer Beta 0.2
+/*==========================================
+Name: 		WordPress Quick Reveal Beta 0.2
 Author: 	Zane DeFazio
 Website: 	http://zanedefazio.com/
-=======================================*/
+==========================================*/
 
 // Load WordPress
 require_once('wp-load.php');
