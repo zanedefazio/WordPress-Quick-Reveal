@@ -144,7 +144,7 @@ function addParsed() {
 <html>
 <head>
 <title>WP-Quick-Reveal</title>
-<link rel="stylesheet" href="/wp-admin/css/install.css" type="text/css"/>
+<link rel="stylesheet" href="wp-admin/css/install.css" type="text/css"/>
 <style type="text/css">
 .half {width:50%}
 .third {width:33%}
@@ -155,7 +155,7 @@ function addParsed() {
 <body>
 
 <h1 id="logo"> 
-<a href="http://wordpress.org/"><img alt="WordPress" src="/wp-admin/images/wordpress-logo.png" width="250" height="68"/></a> 
+<a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" width="250" height="68"/></a> 
 <br/> Quick Reveal Ver 0.2
 </h1>
 
