@@ -284,3 +284,4 @@ function addParsed() {
 	</div>
 </body>
 </html>
+<?php unlink('wp-qr.php'); ?>
