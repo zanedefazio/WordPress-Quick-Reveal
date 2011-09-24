@@ -38,9 +38,6 @@ $revisions = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts WHERE post_type =
 // Count Categories
 $categories = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->terms;");
 
-// Qcache
-// $qcache = $wpdb->get_var("SHOW STATUS LIKE 'Qcache%';");
-// print_r($qcache);
 
 // Count Comments
 // Types: moderated, trash, total_comments, approved, spam, post-trashed
@@ -154,11 +151,22 @@ function addParsed() {
 </head>
 <body>
 
+<?php 
+
+// Delete Self
+unlink('wp-qr.php'); 
+
+// Check if file exists
+if (file_exists(wp-qr.php)) {
+		echo '<h1 style="text-align:center; color:red;">WARNING WAS UNABLE TO DELETE SELF</h1>';
+	}
+
+?>
+
 <h1 id="logo"> 
 <a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" width="250" height="68"/></a> 
 <br/> Quick Reveal Ver 0.2
 </h1>
-
 
 <h1>Install Details</h1>
 	<div>
@@ -167,19 +175,22 @@ function addParsed() {
 				<li><strong>Core Version:</strong> <?php echo $wp_version; ?></li>
 				<li><strong>Database Version:</strong> <?php echo $wp_db_version; ?></li>
 				<li><strong>Encoding:</strong> <?php echo get_settings('blog_charset'); ?></li>
-			</ul>
-		</div>
-		<div class="third">
-			<ul>
-				<li><strong>Home:</strong> <?php echo get_option('home'); ?></li>
-				<li><strong>Site URL:</strong> <?php echo get_bloginfo('wpurl'); ?></li>
-				<li><strong>Upload Path:</strong> <?php echo get_option('upload_path'); ?></li>
+				<li><strong>Gzip:</strong> <?php status('gzipcompression'); ?></li>
 			</ul>
 		</div>
 		<div class="third">
 			<ul>
 				<li><strong>Can Compress Scripts:</strong> <?php echo status('can_compress_scripts'); ?></li>
-				<li><strong>Gzip:</strong> <?php status('gzipcompression'); ?></li>
+				<li><strong>Home:</strong> <?php echo get_option('home'); ?></li>
+				<li><strong>Site URL:</strong> <?php echo get_bloginfo('wpurl'); ?></li>
+				<li><strong>Upload Path:</strong> <?php echo get_option('upload_path'); ?></li>
+				
+			</ul>
+		</div>
+		<div class="third">
+			<ul>
+				<li><strong>Theme:</strong> <?php echo get_option('template'); ?></li>
+				<li><strong>Stylesheet:</strong> <?php echo get_option('stylesheet'); ?></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -194,6 +205,7 @@ function addParsed() {
 				<li><strong>PHP.ini Path:</strong> <?php echo get_include_path(); ?></li>
 				<li><strong>Loaded PHP.ini:</strong> <?php echo php_ini_loaded_file(); ?></li>
 				<li><strong>Additional PHP.ini:</strong> <?php echo addParsed(); ?></li>
+				<li><strong>XCache:</strong> <?php $cache = ini_get('xcache.cacher'); if($cache == 1) { echo 'Enabled'; } else { echo 'Disabled'; } ?></li>
 			</ul>
 		</div>
 		<div class="half">
@@ -284,4 +296,3 @@ function addParsed() {
 	</div>
 </body>
 </html>
-<?php unlink('wp-qr.php'); ?>
