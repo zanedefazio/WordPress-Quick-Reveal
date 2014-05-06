@@ -12,7 +12,7 @@ require_once('wp-load.php');
 // Types: publish, future, draft, pending, private, trash, auto-draft, inherit
 function countPosts($type) {
 	$count_posts = wp_count_posts();
-	if($count_posts->$type == NULL) {
+	if ($count_posts->$type == NULL) {
 		echo 0;
 	}
 	else {
@@ -24,7 +24,7 @@ function countPosts($type) {
 // Types: publish, future, draft, pending, private, trash, auto-draft, inherit
 function countPages($type) {
 	$count_posts = wp_count_posts('page');
-	if($count_posts->$type == NULL) {
+	if ($count_posts->$type == NULL) {
 		echo 0;
 	}
 	else {
@@ -43,7 +43,7 @@ $categories = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->terms;");
 // Types: moderated, trash, total_comments, approved, spam, post-trashed
 function countComments($type) {
 	$count_comments = wp_count_comments();
-	if($count_comments->$type == NULL) {
+	if ($count_comments->$type == NULL) {
 		echo 0;
 	}
 	else {
@@ -60,7 +60,7 @@ function totalUsers() {
 // Total Roles
 function totalRoles() {
 	$count_roles = count_users();
-	foreach($count_roles['avail_roles'] as $role => $count) {
+	foreach ($count_roles['avail_roles'] as $role => $count) {
 		echo '<li><strong>'.ucfirst($role).'s:</strong> '.$count.'</li>';
 	}
 }
@@ -68,7 +68,7 @@ function totalRoles() {
 // Status | Checks if wp_option is enabled or disabled via wp get_option()
 function status($option) {
 	$enabled = get_option("$option");
-	if($enabled == 1) {
+	if ($enabled == 1) {
 		echo 'Enabled';
 	}
 	else {
@@ -79,7 +79,7 @@ function status($option) {
 // Active Plugins
 function activePlugins() {
 	$plugins = get_option('active_plugins');
-	foreach($plugins as $plugin) {
+	foreach ($plugins as $plugin) {
 		$plugin = explode("/",$plugin); 
 		$plugin = $plugin['0'];
 		echo '<li>'.$plugin.'</li>';
@@ -89,7 +89,7 @@ function activePlugins() {
 // Recent Plugins
 function recentPlugins() {
 	$plugins = get_option('recently_activated');
-	foreach($plugins as $plugin => $v) {
+	foreach ($plugins as $plugin => $v) {
 		$plugin = explode("/",$plugin); 
 		$plugin = $plugin['0'];
 		echo '<li>'.$plugin.'</li>';
@@ -99,13 +99,13 @@ function recentPlugins() {
 // Cron Jobs
 function cronJobs() {
 	$crons = get_option('cron');
-	foreach($crons as $cron) {
-		if(is_array($cron)) {
-			foreach($cron as $name => $value) {
+	foreach ($crons as $cron) {
+		if (is_array($cron)) {
+			foreach ($cron as $name => $value) {
 				echo '<div class="third"><h2>'.$name.'</h2><ul>';
-				foreach($value as $key => $v) {
-					foreach($v as $a => $b) {
-						if($a != "args") {
+				foreach ($value as $key => $v) {
+					foreach ($v as $a => $b) {
+						if ($a != "args") {
 							echo '<li><strong>'.$a.':</strong> '.$b.'</li>';
 						}
 					}
@@ -120,7 +120,7 @@ function cronJobs() {
 function mysqlInfo() {
 	global $wpdb;
 	$mysqlinfo = $wpdb->get_results('SHOW TABLE STATUS');
-	foreach($mysqlinfo as $class => $table) {
+	foreach ($mysqlinfo as $class => $table) {
 		$size = number_format(($table->Data_length+$table->Index_length)/1024, 2);
 		echo '<div class="third"><h2>'.$table->Name.':</h2> <ul><li><strong>Rows:</strong> '.$table->Rows.'</li><li><strong>Size:</strong> '.$size.' Kbs</li></ul></div>';
 	}
@@ -129,7 +129,7 @@ function mysqlInfo() {
 // Additional Parsed PHP.ini
 function addParsed() {
 	$parsed = php_ini_scanned_files();
-	if(empty($parsed)) {
+	if (empty($parsed)) {
 		echo '(none)';
 	}
 	else {
@@ -158,14 +158,14 @@ unlink('wp-qr.php');
 
 // Check if file exists
 if (file_exists(wp-qr.php)) {
-		echo '<h1 style="text-align:center; color:red;">WARNING WAS UNABLE TO DELETE SELF</h1>';
-	}
+	echo '<h1 style="text-align:center; color:red;">WARNING WAS UNABLE TO DELETE SELF</h1>';
+}
 
 ?>
 
 <h1 id="logo"> 
 <a href="http://wordpress.org/"><img alt="WordPress" src="wp-admin/images/wordpress-logo.png" width="250" height="68"/></a> 
-<br/> Quick Reveal Ver 0.2
+<br/> Quick Reveal Ver 0.3
 </h1>
 
 <h1>Install Details</h1>
@@ -222,17 +222,18 @@ if (file_exists(wp-qr.php)) {
 	</div>
 
 <h1>MySQL Details</h1>
-<div>
-<?php mysqlInfo(); ?>
-<div class="clear"></div>
-</div>
+	<div>
+		<?php mysqlInfo(); ?>
+		<div class="clear"></div>
+	</div>
+
 <h1>Posts/Pages Details</h1>
 	<div>
 		<div class="third">
 			<h2>Posts</h2>
 			<ul>
 				<li><strong>Published:</strong> <?php countPosts('publish'); ?></li>
-				<li><strong>Future</strong>: <?php countPosts('future'); ?></li>
+				<li><strong>Future:</strong> <?php countPosts('future'); ?></li>
 				<li><strong>Drafts:</strong> <?php countPosts('draft'); ?></li>
 				<li><strong>Pending:</strong> <?php countPosts('pending'); ?></li>
 				<li><strong>Private:</strong> <?php countPosts('private'); ?></li>
@@ -245,7 +246,7 @@ if (file_exists(wp-qr.php)) {
 			<h2>Pages</h2>
 			<ul>
 				<li><strong>Published:</strong> <?php countPages('publish'); ?></li>
-				<li><strong>Future</strong>: <?php countPages('future'); ?></li>
+				<li><strong>Future:</strong> <?php countPages('future'); ?></li>
 				<li><strong>Drafts:</strong> <?php countPages('draft'); ?></li>
 				<li><strong>Pending:</strong> <?php countPages('pending'); ?></li>
 				<li><strong>Private:</strong> <?php countPages('private'); ?></li>
@@ -265,13 +266,13 @@ if (file_exists(wp-qr.php)) {
 	</div>
 
 <h1>Comments Details</h1>
-<ul>
-	<li><strong>Total:</strong> <?php countComments('total_comments'); ?></li>
-	<li><strong>Approved:</strong> <?php countComments('approved'); ?></li>
-	<li><strong>Pending:</strong> <?php countComments('moderated'); ?></li>
-	<li><strong>Spam:</strong> <?php countComments('spam'); ?></li>
-	<li><strong>Trash:</strong> <?php countComments('trash'); ?></li>
-</ul>
+	<ul>
+		<li><strong>Total:</strong> <?php countComments('total_comments'); ?></li>
+		<li><strong>Approved:</strong> <?php countComments('approved'); ?></li>
+		<li><strong>Pending:</strong> <?php countComments('moderated'); ?></li>
+		<li><strong>Spam:</strong> <?php countComments('spam'); ?></li>
+		<li><strong>Trash:</strong> <?php countComments('trash'); ?></li>
+	</ul>
 
 <h1>User Details</h1>
 	<ul>
@@ -291,8 +292,8 @@ if (file_exists(wp-qr.php)) {
 
 <h1>Cron Jobs</h1>
 	<div>
-	<?php cronJobs(); ?>
-	<div class="clear"></div>
+		<?php cronJobs(); ?>
+		<div class="clear"></div>
 	</div>
 </body>
 </html>
